@@ -94,7 +94,15 @@ module.exports = function displayOutlines(polygons, outlines, dragOptions, nCall
         copyPolygons = recordPositions([], polygons);
 
         var g = zoomLayer.append('g').attr('class', 'outline-controllers');
-        addVertexControllers(g);
+        
+        // We check the shape type here so we avoid putting the vertex controlelrs on the circle
+        // This way a drawn circle can still be dragged but its dimensions (i.e. radius) cannot be changed.
+        // dragOptions.gd.layout.shapes holds the list of shapes in the layout
+        // dragOptions.element.getAttribute('data-index') holds the index of the shape being dragged as a string
+        var shape_type = dragOptions.gd.layout.shapes[parseInt(dragOptions.element.getAttribute('data-index'))].type;
+        if (shape_type != 'circle'){
+            addVertexControllers(g);
+        }
         addGroupControllers();
     }
 

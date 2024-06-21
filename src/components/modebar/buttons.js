@@ -175,6 +175,20 @@ modeBarButtons.drawcircle = {
     click: handleCartesian
 };
 
+// Custom modebar button for selecting point
+// The actual drawing of point would happen in a click callback that checks if this button is selected.
+// This is because I cannot figure out how to do it well here!!!
+// Reason we define the point here is so in "constants.js" we can add point to the drawmodes list and it will be displayed in order
+modeBarButtons.point = {
+    name: 'point',
+    title: 'Select Point',
+    toggle: true,
+    icon: Icons.drawcircle,
+    click: function(gd, ev) {
+        console.log("Point mode modebar click")
+    }
+};
+
 modeBarButtons.eraseshape = {
     name: 'eraseshape',
     title: function(gd) { return _(gd, 'Erase active shape'); },
